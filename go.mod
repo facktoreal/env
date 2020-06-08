@@ -1,4 +1,4 @@
-module yn.ee/facktoreal/env
+module github.com/facktoreal/env
 
 go 1.12
 
