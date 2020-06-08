@@ -9,7 +9,7 @@ Current release version of backend. Can be set in CI/CD using:
 ```go
 package main
 
-import "yn.ee/facktoreal/env"
+import "github.com/facktoreal/env"
 
 func main()  {
     if err := env.Init(); err != nil {
