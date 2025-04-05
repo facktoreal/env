@@ -12,7 +12,8 @@ package main
 import "github.com/facktoreal/env"
 
 func main()  {
-    if err := env.Init(); err != nil {
+	// envOptional bool
+    if err := env.Init(true); err != nil {
         // handle error
     }
      

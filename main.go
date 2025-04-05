@@ -10,21 +10,25 @@ import (
 )
 
 // Init imports ENV vars
-func Init() error {
+func Init(envOptional bool) error {
 	dir, err := os.Getwd()
 	if err != nil {
 		return err
 	}
 
 	if _, err := os.Stat(fmt.Sprintf("%s/%s", dir, ".env")); err == nil {
-		fmt.Println(".env file found, loading")
+		log.Print(".env file found, loading")
 
 		err := godotenv.Load()
 		if err != nil {
 			return err
 		}
-	} else {
-		fmt.Println("No .env file found")
+
+		return nil
+	}
+
+	if !envOptional {
+		log.Print("No .env file found")
 	}
 
 	return nil
@@ -34,7 +38,7 @@ func Init() error {
 func MustGetString(key string) string {
 	v := os.Getenv(key)
 	if v == "" {
-		log.Panicf("%s environment variable not set.", key)
+		log.Fatalf("%s environment variable not set.", key)
 	}
 
 	return v
@@ -54,12 +58,12 @@ func MayGetString(key string) string {
 func MustGetInt(key string) int {
 	v := os.Getenv(key)
 	if v == "" {
-		log.Panicf("%s environment variable not set.", key)
+		log.Fatalf("%s environment variable not set.", key)
 	}
 
 	i, err := strconv.Atoi(v)
 	if err != nil {
-		log.Panicf("Unable to parse %s, err: %s", key, err.Error())
+		log.Fatalf("Unable to parse %s, err: %s", key, err.Error())
 	}
 
 	return i
